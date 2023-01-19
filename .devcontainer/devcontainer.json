@@ -5,7 +5,9 @@
     "workspaceFolder": "/src",
     "settings": {},
     "extensions": [
-        "prisma.prisma"
+        "prisma.prisma",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
     ],
     "forwardPorts": [
         5555
