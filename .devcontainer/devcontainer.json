@@ -1,0 +1,13 @@
+{
+    "name": "nokogiri-backend",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "node",
+    "workspaceFolder": "/src",
+    "settings": {},
+    "extensions": [
+        "prisma.prisma"
+    ],
+    "forwardPorts": [
+        5555
+    ]
+}

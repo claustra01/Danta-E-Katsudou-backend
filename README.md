@@ -1,3 +1,17 @@
+# 環境構築
+
+1. このリポジトリをクローン
+2. vscode で開いて、F1 キーを押して、Reopen in Container を選択
+3. コンテナ内で開発を進める
+
+※ orm に[prisma](https://www.prisma.io/)を使用しています。
+
+```
+npx prisma studio
+```
+
+で、データベースの中身を見ることができます。
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
