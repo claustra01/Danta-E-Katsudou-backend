@@ -1,8 +1,10 @@
 # 環境構築
 
 1. このリポジトリをクローン
-2. vscode で開いて、F1 キーを押して、Reopen in Container を選択
-3. コンテナ内で開発を進める
+2. .env.sample を参考に.env ファイルを作成(データベース URL は教えます)
+3. vscode で開いて、F1 キーを押して、Reopen in Container を選択
+4. コンテナ内のターミナルで、npx prisma migrate dev を実行(prisma cli がないと怒られる場合はインストールしてください)
+5. コンテナ内で開発を進める
 
 ※ orm に[prisma](https://www.prisma.io/)を使用しています。
 
