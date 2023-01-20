@@ -4,26 +4,22 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-    constructor(
-        private readonly usersService: UsersService
-    ) { }
+  constructor(private readonly usersService: UsersService) {}
 
-    @Get(':id')
-    async findUserById(
-        @Param('id') id: string
-    ): Promise<User> {
-        return this.usersService.user(id)
-    }
+  @Get(':id')
+  async findUserById(@Param('id') id: string): Promise<User> {
+    return this.usersService.user(id);
+  }
 
-    @Get()
-    async getAllUsers(): Promise<User[]> {
-        return this.usersService.users()
-    }
+  @Get()
+  async getAllUsers(): Promise<User[]> {
+    return this.usersService.users();
+  }
 
-    @Post()
-    async createUser(
-        @Body() userData: { name: string, email: string, passwordHash: string }
-    ): Promise<User> {
-        return this.usersService.createUser(userData)
-    }
+  @Post()
+  async createUser(
+    @Body() userData: { name: string; email: string; password: string },
+  ): Promise<User> {
+    return this.usersService.createUser(userData);
+  }
 }
