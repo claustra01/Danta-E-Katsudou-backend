@@ -9,9 +9,19 @@ on:
       - master
   workflow_dispatch:
 
+env:
+  NODE_VERSION: '18.x'
+  WORKING_DIRECTORY: nodejs/nestjs
+  PACKAGE_NAME: node-app
+  ARCHIVE_NAME: nustjs.zip
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
 
     steps:
       - uses: actions/checkout@v2
@@ -19,7 +29,9 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
-          node-version: '18.x'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ${{ env.WORKING_DIRECTORY }}
 
       - name: npm install, build, and test
         run: |
@@ -28,11 +40,18 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
+      - name: Install zip
+        uses: montudor/action-zip@v1
+
+      - name: Zip output
+        run: zip -qq -r ${{ env.ARCHIVE_NAME }} .
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: node-app
-          path: .
+          name: ${{ env.PACKAGE_NAME }}
+          path: ${{ env.WORKING_DIRECTORY }}/${{ env.ARCHIVE_NAME }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,7 +64,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: node-app
+          name: ${{ env.PACKAGE_NAME }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -54,4 +73,4 @@ jobs:
           app-name: 'nokogiri-ne-t-backend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_91AED472BA694F7F967F64067000CB61 }}
-          package: .
+          package: ${{ env.ARCHIVE_NAME }}

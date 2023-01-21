@@ -5,14 +5,15 @@ const prisma = new PrismaClient();
 const userData: Prisma.UserCreateInput[] = [
   {
     name: 'hoge1',
-    lineID: 'hoge1@example.com',
+    picture: 'sample.com',
+    lineID: 'testID',
   },
   {
     name: 'hoge2',
-    lineID: 'hoge2@example.com',
+    lineID: '123456789',
   },
   {
     name: 'hoge3',
-    lineID: 'hoge3@example.com',
+    lineID: '234567891',
   },
 ];

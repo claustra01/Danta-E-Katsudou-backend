@@ -1,5 +1,5 @@
 {
-    "name": "nokogiri-backend",
+    "name": "nokogiri-backend-2",
     "dockerComposeFile": "docker-compose.yml",
     "service": "node",
     "workspaceFolder": "/src",
