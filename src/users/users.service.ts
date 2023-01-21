@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
@@ -17,14 +17,16 @@ export class UsersService {
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    try {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        lineID: data.lineID,
+      },
+    });
+    if (user) {
+      return user;
+    } else {
       return this.prisma.user.create({
         data,
-      });
-    } catch (error) {
-      throw new BadRequestException('Bad Request Error happened', {
-        cause: new Error(),
-        description: 'The name of the key in the json may be different.',
       });
     }
   }
