@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ActivitieService } from './activitie.service';
 
 @Controller('activitie')
@@ -13,6 +21,14 @@ export class ActivitieController {
   @Get('record/:recordId')
   async findActivitiesByRecordId(@Param('recorId') recordId: string) {
     return this.activitieService.recordActivities(recordId);
+  }
+
+  @Get('')
+  async createMemberByQuery(
+    @Query('activitieId') activitieId: string,
+    @Query('lineId') lineId: string,
+  ) {
+    return this.activitieService.createMember(activitieId, lineId);
   }
 
   @Post('')
@@ -32,5 +48,13 @@ export class ActivitieController {
   @Delete(':id')
   async deleteActivitieById(@Param('id') id: string) {
     return this.activitieService.deleteActivitie(id);
+  }
+
+  @Delete('')
+  async deleteMemberByQuery(
+    @Query('activitieId') activitieId: string,
+    @Query('lineId') lineId: string,
+  ) {
+    return this.activitieService.deleteMember(activitieId, lineId);
   }
 }

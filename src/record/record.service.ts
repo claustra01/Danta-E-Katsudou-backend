@@ -22,6 +22,7 @@ export class RecordService {
       },
       include: {
         activities: true,
+        user: true,
       },
     });
   }
