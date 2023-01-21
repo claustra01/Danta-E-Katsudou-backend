@@ -25,5 +25,13 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
 
+ngrok:
+  container_name: ngrok
+  image: wernight/ngrok:latest
+  ports:
+    - ${NGROK_PORT:-4040}:4040
+  environment:
+    NGROK_PORT: app:8080
+
 volumes:
   db-data:
