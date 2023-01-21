@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { UsersService } from './users.service';
 
-@Controller('users')
+@Controller('api/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -16,9 +16,9 @@ export class UsersController {
     return this.usersService.users();
   }
 
-  @Post()
+  @Post('auth')
   async createUser(
-    @Body() userData: { name: string; email: string; password: string },
+    @Body() userData: { name: string; lineID: string; pitcure: string },
   ): Promise<User> {
     return this.usersService.createUser(userData);
   }
