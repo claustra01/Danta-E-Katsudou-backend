@@ -56,7 +56,7 @@ jobs:
         with:
           app-name: 'nokogiri-ne-t-backend'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_91AED472BA694F7F967F64067000CB61 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_87CE3BEB92594741863FDDF55A62C6A5 }}
           package: nest.zip
 
       - name: Delete zip file
