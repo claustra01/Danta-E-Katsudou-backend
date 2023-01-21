@@ -4,7 +4,7 @@ import { RecordController } from './record.controller';
 import { RecordService } from './record.service';
 
 @Module({
-  controllers: [RecordController, PrismaService],
-  providers: [RecordService],
+  controllers: [RecordController],
+  providers: [RecordService, PrismaService],
 })
 export class RecordModule {}

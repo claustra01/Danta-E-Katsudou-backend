@@ -21,13 +21,29 @@ export class UsersService {
       where: {
         lineID: data.lineID,
       },
+      include: {
+        UserOnActiviteis: true,
+        Record: true,
+      },
     });
     if (user) {
       return user;
     } else {
       return this.prisma.user.create({
         data,
+        include: {
+          UserOnActiviteis: true,
+          Record: true,
+        },
       });
     }
+  }
+
+  async deleteUser(id: string) {
+    return this.prisma.user.delete({
+      where: {
+        id: id,
+      },
+    });
   }
 }

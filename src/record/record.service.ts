@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -15,14 +14,21 @@ export class RecordService {
     });
   }
 
-  async createRecord(data: Prisma.RecordCreateInput) {
+  async createRecord(data: { name: string; lineId: string }) {
     return await this.prisma.record.create({
       data: {
         name: data.name,
+        lineId: data.lineId,
       },
       include: {
         activities: true,
       },
+    });
+  }
+
+  async deleteRecord(id: string) {
+    return await this.prisma.record.delete({
+      where: { id: id },
     });
   }
 }

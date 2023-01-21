@@ -18,31 +18,35 @@ model User {
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   UserOnActiviteis UserOnActiviteis[]
+  Record           Record[]
 }
 
 model Activitie {
   id        String             @id @default(uuid())
+  name      String
   dateTime  DateTime
   place     String
   misc      String
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt
   member    UserOnActiviteis[]
-  Record    Record?            @relation(fields: [recordId], references: [id])
+  Record    Record?            @relation(fields: [recordId], references: [id], onDelete: Cascade)
   recordId  String?
 }
 
 model UserOnActiviteis {
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String
+  user        User      @relation(fields: [lineId], references: [lineID])
+  lineId      String
   activitie   Activitie @relation(fields: [activitieId], references: [id])
   activitieId String
 
-  @@id([userId, activitieId])
+  @@id([lineId, activitieId])
 }
 
 model Record {
   id         String      @id @default(uuid())
   name       String
   activities Activitie[]
+  user       User        @relation(fields: [lineId], references: [lineID])
+  lineId     String
 }
