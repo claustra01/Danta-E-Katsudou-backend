@@ -6,19 +6,28 @@ import { PrismaService } from 'src/prisma.service';
 export class ActivitieService {
   constructor(private prisma: PrismaService) {}
 
-  async activitie(id: string): Promise<Activitie | null> {
+  async activitie(id: string) {
     return this.prisma.activitie.findUnique({
       where: { id },
+      include: {
+        member: true,
+        Record: true,
+      },
     });
   }
 
   async recordActivities(recordId: string): Promise<Activitie[]> {
     return this.prisma.activitie.findMany({
       where: { recordId },
+      include: {
+        member: true,
+        Record: true,
+      },
     });
   }
 
   async createActivitie(data: {
+    name: string;
     dateTime: string | Date;
     place: string;
     misc: string;
@@ -26,6 +35,7 @@ export class ActivitieService {
   }) {
     const activitie = await this.prisma.activitie.create({
       data: {
+        name: data.name,
         dateTime: data.dateTime,
         place: data.place,
         misc: data.misc,
@@ -38,5 +48,11 @@ export class ActivitieService {
     });
 
     return activitie;
+  }
+
+  async deleteActivitie(id: string) {
+    return this.prisma.activitie.delete({
+      where: { id: id },
+    });
   }
 }
