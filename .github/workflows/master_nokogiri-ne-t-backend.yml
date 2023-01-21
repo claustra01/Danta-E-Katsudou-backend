@@ -13,7 +13,7 @@ env:
   NODE_VERSION: '18.x'
   WORKING_DIRECTORY: nodejs/nestjs
   PACKAGE_NAME: node-app
-  ARCHIVE_NAME: nustjs.zip
+  ARCHIVE_NAME: nestjs.zip
 
 jobs:
   build:
@@ -36,6 +36,7 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
+          npm install -g @nestjs/cli
           npx prisma generate
           npm run build --if-present
           npm run test --if-present
