@@ -13,8 +13,8 @@ datasource db {
 model User {
   id        String   @id @default(uuid())
   name      String
-  email     String   @unique
-  password  String
+  picture   String?
+  lineID    String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
