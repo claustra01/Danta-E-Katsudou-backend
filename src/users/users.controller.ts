@@ -6,9 +6,9 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get(':id')
-  async findUserById(@Param('id') id: string): Promise<User> {
-    return this.usersService.user(id);
+  @Get(':lineID')
+  async findUserById(@Param('lineID') lineID: string): Promise<User> {
+    return this.usersService.user(lineID);
   }
 
   @Get()
@@ -23,8 +23,8 @@ export class UsersController {
     return this.usersService.createUser(userData);
   }
 
-  @Delete(':id')
-  async deleteUserById(@Param('id') id: string) {
-    return this.usersService.deleteUser(id);
+  @Delete(':lineID')
+  async deleteUserById(@Param('lineID') lineID: string) {
+    return this.usersService.deleteUser(lineID);
   }
 }
