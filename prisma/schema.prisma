@@ -21,16 +21,15 @@ model User {
 }
 
 model Activitie {
-  id               String             @id @default(uuid())
-  dateTime         DateTime
-  place            String
-  misc             String
-  member           String
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  UserOnActiviteis UserOnActiviteis[]
-  Record           Record?            @relation(fields: [recordId], references: [id])
-  recordId         String?
+  id        String             @id @default(uuid())
+  dateTime  DateTime
+  place     String
+  misc      String
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  member    UserOnActiviteis[]
+  Record    Record?            @relation(fields: [recordId], references: [id])
+  recordId  String?
 }
 
 model UserOnActiviteis {

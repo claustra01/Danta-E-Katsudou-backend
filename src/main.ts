@@ -7,6 +7,7 @@ async function bootstrap() {
     origin: '*',
     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
   });
-  await app.listen(8000);
+  const port = process.env.port || 8080;
+  await app.listen(port);
 }
 bootstrap();

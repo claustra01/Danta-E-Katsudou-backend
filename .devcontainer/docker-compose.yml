@@ -6,17 +6,17 @@ services:
     environment:
       TZ: "Asia/Tokyo"
     ports:
-        - "8000:8000"
+      - "8080:8080"
     volumes:
-        - ../:/src
+      - ../:/src
     working_dir: /src
     depends_on:
       - db
     command: /bin/sh -c "while sleep 1000; do :; done"
-  
+
   db:
     image: postgres:14
-    container_name: nokogiri-db
+    container_name: nokogiri-db-ne-t
     volumes:
       - db-data:/var/lib/postgresql/nokogiri_development/data
     ports:
