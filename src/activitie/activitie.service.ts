@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Activitie } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
@@ -24,6 +28,25 @@ export class ActivitieService {
         Record: true,
       },
     });
+  }
+
+  async createMember(activitieId: string, lineId: string) {
+    try {
+      console.log(activitieId);
+      console.log(lineId);
+      return await this.prisma.userOnActiviteis.create({
+        data: {
+          lineId: lineId,
+          activitieId: activitieId,
+        },
+        include: {
+          activitie: true,
+          user: true,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException();
+    }
   }
 
   async createActivitie(data: {
@@ -53,6 +76,27 @@ export class ActivitieService {
   async deleteActivitie(id: string) {
     return this.prisma.activitie.delete({
       where: { id: id },
+    });
+  }
+
+  async deleteMember(activitieId: string, lineId: string) {
+    const ua = this.prisma.userOnActiviteis.findFirst({
+      where: {
+        lineId: lineId,
+        activitieId: activitieId,
+      },
+    });
+    if (!ua) {
+      throw new BadRequestException();
+    }
+
+    return this.prisma.userOnActiviteis.delete({
+      where: {
+        lineId_activitieId: {
+          lineId: lineId,
+          activitieId: activitieId,
+        },
+      },
     });
   }
 }
