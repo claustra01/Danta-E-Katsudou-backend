@@ -1,14 +1,12 @@
-FROM node:18
+FROM node:18-alpine3.16
 
 RUN mkdir -p /opt
 COPY . /opt/
 WORKDIR /opt
 
-RUN apt update
-RUN apt install -y libpq-dev build-essential
-
+RUN npm i -g npm
 RUN npm install 
 RUN npx prisma generate
-RUN npm build
+RUN npm run build
 
-CMD ["npm", "start:dev"]
+CMD npm run start:dev
